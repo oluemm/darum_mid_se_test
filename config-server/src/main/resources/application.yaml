@@ -3,7 +3,8 @@ spring:
     config:
       server:
         git:
-          uri: https://github.com/oluemm/darum_config_repo          
+          uri: https://github.com/oluemm/darum_config_repo
+          default-label: main
 server:
   port: 8080
   

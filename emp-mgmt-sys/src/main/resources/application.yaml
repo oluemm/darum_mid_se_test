@@ -1,6 +1,5 @@
 spring:
   application:
-#    name: auth_service
     name: emp-mgmt-sys
   config:
     import: optional:configserver:http://localhost:8080
@@ -9,12 +8,6 @@ spring:
       fail-fast: true
   profiles:
     active: dev
-
-management:
-  endpoints:
-    web:
-      exposure:
-        include: refresh
 
 server:
   port: 5000
