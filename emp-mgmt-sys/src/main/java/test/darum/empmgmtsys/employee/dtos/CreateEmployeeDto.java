@@ -16,6 +16,7 @@ public class CreateEmployeeDto {
   private String firstName;
   private String lastName;
 
+  @NotNull(message = "Email is required")
   @Email(message = "Provide a valid email address")
   private String email;
   

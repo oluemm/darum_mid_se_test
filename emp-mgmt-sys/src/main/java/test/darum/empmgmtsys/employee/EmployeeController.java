@@ -4,6 +4,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import test.darum.empmgmtsys.employee.dtos.CreateEmployeeDto;
 import test.darum.empmgmtsys.employee.dtos.GetEmployeeDto;
@@ -29,7 +30,7 @@ public class EmployeeController {
   }
 
   @PostMapping
-  public ResponseEntity<GetEmployeeDto> createEmployee(@RequestBody CreateEmployeeDto dto) {
+  public ResponseEntity<GetEmployeeDto> createEmployee(@Validated @RequestBody CreateEmployeeDto dto) {
     GetEmployeeDto createdEmployee = employeeService.create(dto);
     return new ResponseEntity<>(createdEmployee, HttpStatus.CREATED);
   }
