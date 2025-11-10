@@ -8,3 +8,8 @@ spring:
       fail-fast: true
   profiles:
     active: dev
+
+springdoc:
+  swagger-ui:
+    operations-sorter: alpha
+    tags-sorter: alpha

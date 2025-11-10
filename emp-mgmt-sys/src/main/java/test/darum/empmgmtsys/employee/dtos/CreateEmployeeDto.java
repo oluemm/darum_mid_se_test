@@ -6,20 +6,21 @@ import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
+import test.darum.empmgmtsys.common.constants.Errors;
 
 @Getter
 @Setter
 @AllArgsConstructor
 public class CreateEmployeeDto {
 
-  @NotNull(message = "First name is required")
+  @NotNull(message = Errors.REQUIRED)
   private String firstName;
   private String lastName;
 
-  @NotNull(message = "Email is required")
+  @NotNull(message = Errors.REQUIRED)
   @Email(message = "Provide a valid email address")
   private String email;
   
-  @NotNull(message = "User's status is required")
+  @NotNull(message = Errors.REQUIRED)
   private String status;
 }
