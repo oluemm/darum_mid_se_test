@@ -1,5 +1,6 @@
 package test.darum.empmgmtsys.employee;
 
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -10,9 +11,10 @@ import test.darum.empmgmtsys.employee.dtos.UpdateEmployeeDto;
 
 import java.util.List;
 
-@AllArgsConstructor
+@Tag(name = "Employee", description = "CRUD end-points for managing employees")
 @RestController
-@RequestMapping("/employee")
+@AllArgsConstructor
+@RequestMapping("/employees")
 public class EmployeeController {
   private EmployeeService employeeService;
 
