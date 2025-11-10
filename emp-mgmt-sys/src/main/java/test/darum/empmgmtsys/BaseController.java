@@ -11,6 +11,8 @@ import org.springframework.web.servlet.view.RedirectView;
 public class BaseController {
   @Value("${app.name}")
   private String appName;
+  @Value("${spring.mvc.servlet.path}")
+  private String basePath;
 
   @GetMapping("configs")
   public String getAppName() {
@@ -20,6 +22,6 @@ public class BaseController {
   @GetMapping("/")
   public RedirectView index() {
 
-    return new RedirectView("/swagger-ui/index.html");
+    return new RedirectView(basePath + "/swagger-ui/index.html");
   }
 }
