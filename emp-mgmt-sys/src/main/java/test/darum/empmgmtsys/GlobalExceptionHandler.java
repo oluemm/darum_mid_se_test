@@ -2,12 +2,15 @@ package test.darum.empmgmtsys;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import test.darum.empmgmtsys.common.exceptions.NotFoundException;
 import test.darum.empmgmtsys.common.exceptions.ResourceConflictException;
 
+import java.util.HashMap;
 import java.util.Map;
 
 @ControllerAdvice
@@ -23,5 +26,15 @@ public class GlobalExceptionHandler {
   @ResponseStatus(HttpStatus.CONFLICT)
   public ResponseEntity<Map<String, String>> handleResourceConflictException(ResourceConflictException ex) {
     return ResponseEntity.status(HttpStatus.CONFLICT).body(Map.of("message", ex.getMessage()));
+  }
+
+  @ExceptionHandler(MethodArgumentNotValidException.class)
+  public ResponseEntity<Map<String, String>> handleValidationErrors(MethodArgumentNotValidException exception) {
+    var errors = new HashMap<String, String>();
+    BindingResult bindingResult = exception.getBindingResult();
+    bindingResult.getFieldErrors().forEach(error -> {
+      errors.put(error.getField(), error.getDefaultMessage());
+    });
+    return ResponseEntity.badRequest().body(errors);
   }
 }
