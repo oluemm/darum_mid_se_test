@@ -6,8 +6,4 @@ spring:
           uri: https://github.com/oluemm/darum_config_repo
           default-label: main
 server:
-  port: 8080
-  
-#employee_sys:
-#  service:
-#    url: http://
+  port: 4000

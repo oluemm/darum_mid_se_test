@@ -2,7 +2,7 @@ spring:
   application:
     name: discovery-service
   config:
-    import: optional:configserver:http://localhost:8080
+    import: optional:configserver:http://localhost:4000
 
   cloud:
     config:

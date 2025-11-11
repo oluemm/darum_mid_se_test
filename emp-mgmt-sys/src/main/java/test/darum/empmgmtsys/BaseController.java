@@ -1,5 +1,6 @@
 package test.darum.empmgmtsys;
 
+import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
@@ -20,11 +21,13 @@ public class BaseController {
   private String basePath;
 
   @GetMapping("configs")
+  @Operation(hidden = true)
   public ResponseEntity<?> getAppName() {
     return ResponseEntity.ok(Map.of("appName", appName));
   }
 
-  @GetMapping("/")
+  @GetMapping({"", "/", "/docs"})
+  @Operation(hidden = true)
   public RedirectView index() {
 
     return new RedirectView(basePath + "/swagger-ui/index.html");
