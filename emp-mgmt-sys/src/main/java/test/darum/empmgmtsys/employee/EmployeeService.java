@@ -25,7 +25,6 @@ public class EmployeeService {
       throw new ResourceConflictException("Employee already exists");
     }
     Employee employee = mapper.toEntity(dto);
-    employee.setCreatedAt(LocalDateTime.now());
 
     Employee savedEmployee = employeeRepository.save(employee);
     return mapper.toDto(savedEmployee);

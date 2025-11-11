@@ -18,4 +18,5 @@ public class GetEmployeeDto {
   private String email;
   private String status;
   private LocalDateTime createdAt;
+  private LocalDateTime updatedAt;
 }

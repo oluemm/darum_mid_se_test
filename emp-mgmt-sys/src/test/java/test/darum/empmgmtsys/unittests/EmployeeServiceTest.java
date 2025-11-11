@@ -49,14 +49,8 @@ class EmployeeServiceTest {
     employee.setId(employeeUuid);
     employee.setEmail("test@example.com");
 
-    getEmployeeDto = new GetEmployeeDto(
-        employeeUuid,
-        "Test",
-        "User",
-        "test@example.com",
-        "ACTIVE",
-        LocalDateTime.now()
-    );
+    getEmployeeDto = new GetEmployeeDto(employeeUuid, "Test", "User", "test@example.com", "ACTIVE",
+                                        LocalDateTime.now(), LocalDateTime.now());
   }
 
   @Test
@@ -94,7 +88,7 @@ class EmployeeServiceTest {
     verify(employeeRepository, times(1)).findByEmail(createDto.getEmail());
     verify(employeeRepository, never()).save(any(Employee.class));
   }
-  
+
   @Test
   void update_ShouldSucceed_WhenEmployeeExists() {
     // Arrange
@@ -215,7 +209,9 @@ class EmployeeServiceTest {
     // Arrange
     Employee employee2 = new Employee();
     employee2.setId(UUID.randomUUID());
-    GetEmployeeDto getEmployeeDto2 = new GetEmployeeDto(employee2.getId(), "Jane", "Doe", "jane@example.com", "ACTIVE", LocalDateTime.now());
+    GetEmployeeDto getEmployeeDto2 = new GetEmployeeDto(employee2.getId(), "Jane", "Doe", "jane@example.com", "ACTIVE"
+        , LocalDateTime.now(), LocalDateTime.now());
+
     List<Employee> employeeList = Arrays.asList(employee, employee2);
 
     when(employeeRepository.findAll()).thenReturn(employeeList);

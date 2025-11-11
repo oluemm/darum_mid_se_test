@@ -1,0 +1,5 @@
+ALTER TABLE employee
+    ADD updated_at TIMESTAMP WITHOUT TIME ZONE;
+
+ALTER TABLE employee
+    ALTER COLUMN created_at DROP NOT NULL;
