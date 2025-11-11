@@ -3,6 +3,6 @@ spring:
     name: api-gateway
   config:
     import: optional:configserver:http://localhost:4000
-    
+
   profiles:
     active: dev

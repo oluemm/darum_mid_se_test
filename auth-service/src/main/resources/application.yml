@@ -1,0 +1,22 @@
+spring:
+  application:
+    name: auth-service
+  config:
+    import: optional:configserver:http://localhost:4000
+  cloud:
+    config:
+      fail-fast: true
+  profiles:
+    active: dev
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
+  instance:
+    instance-id: ${spring.application.name}
+
+jwt:
+  secret: xptjhZxvEFVEjQGDmqLoLjZaWSFoIPRfjQYH7IxnbAw=
+  token:
+    expiration-hours: 72
