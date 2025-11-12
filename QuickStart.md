@@ -57,7 +57,7 @@ mvn spring-boot:run
 
 ### 4️⃣ Employee Service
 ```bash
-cd ../employee-service
+cd .././emp-mgmt-sys/
 mvn spring-boot:run
 ```
 - Connects to PostgreSQL.
