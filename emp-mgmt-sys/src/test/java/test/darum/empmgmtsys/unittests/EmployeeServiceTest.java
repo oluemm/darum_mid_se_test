@@ -8,6 +8,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import test.darum.empmgmtsys.common.exceptions.NotFoundException;
 import test.darum.empmgmtsys.common.exceptions.ResourceConflictException;
+import test.darum.empmgmtsys.department.dtos.GetDepartmentDto;
 import test.darum.empmgmtsys.employee.Employee;
 import test.darum.empmgmtsys.employee.EmployeeMapper;
 import test.darum.empmgmtsys.employee.EmployeeRepository;
@@ -40,23 +41,29 @@ class EmployeeServiceTest {
   private final UUID employeeUuid = UUID.fromString("12345678-1234-1234-1234-1234567890ab");
   private final String employeeId = employeeUuid.toString();
   private Employee employee;
+  private GetDepartmentDto department;
+  private final UUID departmentId = UUID.randomUUID();
+  private final String managerEmail = "manager@darum.ng";
   private GetEmployeeDto getEmployeeDto;
 
   @BeforeEach
   void setUp() {
     // Setup common objects for testing
+    department = new GetDepartmentDto(departmentId, "Department 1", managerEmail, LocalDateTime.now(),
+                                      LocalDateTime.now());
+
     employee = new Employee();
     employee.setId(employeeUuid);
     employee.setEmail("test@example.com");
 
     getEmployeeDto = new GetEmployeeDto(employeeUuid, "Test", "User", "test@example.com", "ACTIVE",
-                                        LocalDateTime.now(), LocalDateTime.now());
+                                        department, LocalDateTime.now(), LocalDateTime.now());
   }
 
   @Test
   void create_ShouldSucceed_WhenEmployeeDoesNotExist() {
     // Arrange
-    CreateEmployeeDto createDto = new CreateEmployeeDto("Test", null, "new@example.com", "User");
+    CreateEmployeeDto createDto = new CreateEmployeeDto("Test", null, "new@example.com", "User", departmentId.toString());
     Employee newEmployee = new Employee();
     Employee savedEmployee = employee;
 
@@ -80,7 +87,7 @@ class EmployeeServiceTest {
   @Test
   void create_ShouldThrowResourceConflictException_WhenEmployeeAlreadyExists() {
     // Arrange
-    CreateEmployeeDto createDto = new CreateEmployeeDto("Test", "User", "test@example.com", "ACTIVE");
+    CreateEmployeeDto createDto = new CreateEmployeeDto("Test", "User", "test@example.com", "ACTIVE", departmentId.toString());
     when(employeeRepository.findByEmail(createDto.getEmail())).thenReturn(employee);
 
     // Act & Assert
@@ -92,7 +99,7 @@ class EmployeeServiceTest {
   @Test
   void update_ShouldSucceed_WhenEmployeeExists() {
     // Arrange
-    UpdateEmployeeDto updateDto = new UpdateEmployeeDto("Updated", "User", "updated@example.com", "ACTIVE");
+    UpdateEmployeeDto updateDto = new UpdateEmployeeDto("Updated", "User", "updated@example.com", "ACTIVE", departmentId.toString());
 
     when(employeeRepository.findById(employeeUuid)).thenReturn(Optional.of(employee));
     when(employeeRepository.save(employee)).thenReturn(employee);
@@ -112,7 +119,7 @@ class EmployeeServiceTest {
   @Test
   void update_ShouldThrowNotFoundException_WhenEmployeeDoesNotExist() {
     // Arrange
-    UpdateEmployeeDto updateDto = new UpdateEmployeeDto("Updated", "User", "updated@example.com", "ACTIVE");
+    UpdateEmployeeDto updateDto = new UpdateEmployeeDto("Updated", "User", "updated@example.com", "ACTIVE", departmentId.toString());
     when(employeeRepository.findById(employeeUuid)).thenReturn(Optional.empty());
 
     // Act & Assert
@@ -125,7 +132,7 @@ class EmployeeServiceTest {
   void update_ShouldThrowNotFoundException_WhenInvalidIdFormat() {
     // Arrange
     String invalidId = "not-a-uuid";
-    UpdateEmployeeDto updateDto = new UpdateEmployeeDto("Updated", "User", "updated@example.com", "ACTIVE");
+    UpdateEmployeeDto updateDto = new UpdateEmployeeDto("Updated", "User", "updated@example.com", "ACTIVE", departmentId.toString());
 
     // Act & Assert
     assertThrows(NotFoundException.class, () -> employeeService.update(invalidId, updateDto));
@@ -205,12 +212,13 @@ class EmployeeServiceTest {
   }
 
   @Test
-  void getEmployees_ShouldReturnListOfEmployeeDtos() {
+  void getEmployees_ShouldReturnListOfEmployeeDto() {
     // Arrange
     Employee employee2 = new Employee();
     employee2.setId(UUID.randomUUID());
-    GetEmployeeDto getEmployeeDto2 = new GetEmployeeDto(employee2.getId(), "Jane", "Doe", "jane@example.com", "ACTIVE"
-        , LocalDateTime.now(), LocalDateTime.now());
+
+    GetEmployeeDto getEmployeeDto2 = new GetEmployeeDto(employee2.getId(), "Jane", "Doe", "jane@example.com", "ACTIVE",
+        department, LocalDateTime.now(), LocalDateTime.now());
 
     List<Employee> employeeList = Arrays.asList(employee, employee2);
 

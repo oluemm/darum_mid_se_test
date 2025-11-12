@@ -1,4 +1,4 @@
-package test.darum.authservice.controller;
+package test.darum.authservice.configs;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

@@ -1,4 +1,4 @@
-package test.darum.apigateway;
+package test.darum.apigateway.configs;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

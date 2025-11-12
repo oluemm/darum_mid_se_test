@@ -1,4 +1,4 @@
-package test.darum.empmgmtsys.employee;
+package test.darum.empmgmtsys.department;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
@@ -9,7 +9,6 @@ import lombok.Setter;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
-import test.darum.empmgmtsys.department.Department;
 
 import java.time.LocalDateTime;
 import java.util.UUID;
@@ -20,29 +19,17 @@ import java.util.UUID;
 @AllArgsConstructor
 @NoArgsConstructor
 @EntityListeners(AuditingEntityListener.class)
-public class Employee {
+public class Department {
   @Id
   @GeneratedValue(strategy = GenerationType.AUTO)
   private UUID id;
 
   @NotNull
-  @Column(name = "first_name")
-  private String firstName;
-
-  @NotNull
-  @Column(name = "last_name")
-  private String lastName;
-
-  @NotNull
   @Column(unique = true)
-  private String email;
-
-  @NotNull
-  private String status;
-
-  @ManyToOne(fetch = FetchType.LAZY)
-  @JoinColumn(name = "department_id", nullable = false)
-  private Department department;
+  private String name;
+  
+  @Column(name = "manager_email")
+  private String managerEmail;
 
   @CreatedDate
   @Column(name = "created_at")

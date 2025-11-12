@@ -8,6 +8,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import test.darum.authservice.dtos.AuthClaims;
 import test.darum.authservice.dtos.LoginRequestDto;
 import test.darum.authservice.dtos.LoginResponseDto;
 import test.darum.authservice.dtos.RegisterRequestDto;
@@ -58,7 +59,7 @@ public class AuthController {
 
   @Operation(summary = "Validate Token")
   @GetMapping("/validate")
-  public ResponseEntity<Void> validateToken(
+  public ResponseEntity<AuthClaims> validateToken(
       @RequestHeader(value = "Authorization", required = false) String authHeader) {
 
     // Authorization: Bearer <token>
@@ -66,8 +67,9 @@ public class AuthController {
       return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
     }
 
-    return authService.validateToken(authHeader.split(" ")[1])
-           ? ResponseEntity.ok().build()
+    var claimsData = authService.validateToken(authHeader.split(" ")[1]);
+    return claimsData.isValid()
+           ? ResponseEntity.ok(claimsData)
            : ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
   }
 }

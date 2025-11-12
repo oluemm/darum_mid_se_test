@@ -1,10 +1,11 @@
 package test.darum.authservice.service;
 
+import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.JwtException;
-import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.transaction.Transactional;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import test.darum.authservice.dtos.AuthClaims;
 import test.darum.authservice.dtos.LoginRequestDto;
 import test.darum.authservice.dtos.RegisterRequestDto;
 import test.darum.authservice.model.User;
@@ -50,12 +51,18 @@ public class AuthService {
                       .map(u -> jwtUtil.generateToken(u.getEmail(), u.getRole().toString()));
   }
 
-  public boolean validateToken(String token) {
+  public AuthClaims validateToken(String token) {
     try {
       jwtUtil.validateToken(token);
-      return true;
+      Claims claims = jwtUtil.extractClaims(token);
+      
+      var claimsData = new AuthClaims();
+      claimsData.setValid(true);
+      claimsData.setEmail(claims.getSubject());
+      claimsData.setRole(claims.get("role", String.class));
+      return claimsData;
     } catch (JwtException e) {
-      return false;
+      return new AuthClaims();
     }
   }
 }

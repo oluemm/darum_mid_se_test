@@ -1,5 +1,6 @@
 package test.darum.authservice.utils;
 
+import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
@@ -44,5 +45,12 @@ public class JwtUtil {
     } catch (JwtException e) {
       throw new JwtException("Bad/Invalid Token");
     }
+  }
+
+  public Claims extractClaims(String token) {
+    return Jwts.parser()
+               .verifyWith((SecretKey) secretKey).build()
+               .parseSignedClaims(token)
+               .getPayload();
   }
 }
