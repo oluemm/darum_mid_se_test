@@ -1,4 +1,4 @@
-# 🧩 Employee Management System – Microservices Architecture
+# Employee Management System – Microservices Architecture
 
 This project is a **Spring Boot Microservices** implementation of an **Employee Management System**, designed with modularity, scalability, and maintainability in mind.
 
@@ -14,16 +14,16 @@ Configuration is centralized through a Config Server, and service discovery is m
 4. [Quick Start Guide](./QuickStart.md)
 
 
-## 🏗️ Project Overview
+## Project Overview
 
-### 📁 Project Structure
+### Project Structure
 
 
 ---
 
-## ⚙️ Services Description
+## Services Description
 
-### 🧭 1. Discovery Service (`discovery-service`)
+### 1. Discovery Service (`discovery-service`)
 - **Tech:** Spring Cloud Netflix Eureka
 - **Purpose:** Registers and manages all microservices for dynamic service discovery.
 - **Port:** `8761`
@@ -31,7 +31,7 @@ Configuration is centralized through a Config Server, and service discovery is m
 
 ---
 
-### 🛠️ 2. Config Server (`config-server`)
+### 2. Config Server (`config-server`)
 - **Tech:** Spring Cloud Config
 - **Purpose:** Provides centralized configuration for all services from a single repository or local config directory.
 - **Port:** `4000`
@@ -40,7 +40,7 @@ Configuration is centralized through a Config Server, and service discovery is m
 
 ---
 
-### 🔐 3. Auth Service (`auth-service`)
+### 3. Auth Service (`auth-service`)
 - **Tech:** Spring Boot, Spring Security, JPA, PostgreSQL
 - **Purpose:** Handles user authentication, registration, and authorization.
 - **Notes:**
@@ -50,7 +50,7 @@ Configuration is centralized through a Config Server, and service discovery is m
 
 ---
 
-### 👥 4. Employee Service (`employee-service`)
+### 4. Employee Service (`employee-service`)
 - **Tech:** Spring Boot, Spring Data JPA, PostgreSQL
 - **Purpose:** Manages employee records (CRUD operations, data queries).
 - **Notes:**
@@ -60,7 +60,7 @@ Configuration is centralized through a Config Server, and service discovery is m
 
 ---
 
-### 🌉 5. API Gateway (`api-gateway`)
+### 5. API Gateway (`api-gateway`)
 - **Tech:** Spring Cloud Gateway
 - **Purpose:** Serves as a unified entry point for routing requests to backend microservices.
 - **Port:** _Set in config server_
@@ -71,7 +71,7 @@ Configuration is centralized through a Config Server, and service discovery is m
 
 ---
 
-## 🧰 Technologies Used
+## Technologies Used
 
 - **Spring Boot 3+**
 - **Spring Cloud (Eureka, Config, Gateway)**
@@ -84,7 +84,7 @@ Configuration is centralized through a Config Server, and service discovery is m
 
 ---
 
-## 🚀 Getting Started
+## Getting Started
 
 ### ✅ Prerequisites
 
@@ -96,7 +96,7 @@ Ensure the following are installed:
 
 ---
 
-### 🧾 1. Clone the Repository
+### 1. Clone the Repository
 
 ```bash
 git clone https://github.com/oluemm/darum_mid_se_test
@@ -104,6 +104,6 @@ cd darum_mid_se_test
 ```
 
 ---
-📘 **Need setup instructions?**  
+ **Need setup instructions?**  
 👉 See the [Quick Start Guide](./QuickStart.md) for build steps, environment setup, and run commands.
 ---
